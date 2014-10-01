@@ -2,7 +2,7 @@
 "vnoremap -> visual mode, non recursive map
 
 "PATHOGEN PLUGIN
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
 
 "LEADER SETTINGS
