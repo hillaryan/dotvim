@@ -1,6 +1,10 @@
 "inoremap -> insert mode, non recursive map
 "vnoremap -> visual mode, non recursive map
 
+"PATHOGEN PLUGIN
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 "LEADER SETTINGS
 let mapleader = ","
 
@@ -176,6 +180,7 @@ nnoremap <leader>w <C-w>v<C-w>l
 au FocusLost * :wa
 
 "FAST FILE LOADING (CTRL-P)
+
 noremap b :CtrlPBuffer<cr> 
 vnoremap b :CtrlPBuffer<cr>
 noremap B :CtrlP<cr>
@@ -255,6 +260,3 @@ set nocompatible
 "make backspace work like normal application
 set backspace=indent,eol,start
 
-"CNTRL-P
-
-set runtimepath^=~/.vim/bundle/ctrlp.vim
