@@ -29,8 +29,8 @@ noremap g b
 vnoremap g b
 
 "end of word
-noremap w e
-vnoremap w e
+noremap l e
+vnoremap l e
 
 "pane right pane left 
 noremap <silent> C :wincmd l<CR>
@@ -122,6 +122,12 @@ noremap E n
 vnoremap E n
 noremap U N
 vnoremap U N
+
+"f and t
+noremap w f
+vnoremap w f
+noremap m t
+vnoremap m t
 
 "REPLACE
 
