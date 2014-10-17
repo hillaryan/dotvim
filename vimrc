@@ -25,8 +25,9 @@ vnoremap H ^
 "right word left word
 noremap c w
 vnoremap c w
-noremap <nowait> g b
-vnoremap <nowait> g b
+let g:netrw_nogx = 1
+noremap g b
+vnoremap g b
 
 "end of word
 noremap l e
