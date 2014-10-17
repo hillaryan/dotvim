@@ -25,8 +25,8 @@ vnoremap H ^
 "right word left word
 noremap c w
 vnoremap c w
-noremap g b
-vnoremap g b
+noremap <nowait> b
+vnoremap <nowait> g b
 
 "end of word
 noremap l e
@@ -94,6 +94,7 @@ vnoremap f y
 "Press d to cut or y to copy.
 "Move to where you would like to paste.
 "Press P to paste before the cursor, or p to paste after.
+
 
 "DELETE
 "d is unmapped
