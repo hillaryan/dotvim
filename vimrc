@@ -185,26 +185,11 @@ vnoremap <tab> %
 "buffer is unsaved, which is why I use 
 set hidden
 
-"to create a new window quickly ",w"
+"to create a new window quickly
 nnoremap <leader>w <C-w>v<C-w>l
 
 "automatically save the buffer when it looses focuse
-au FocusLost * :wa
-
-"FAST FILE LOADING (CTRL-P)
-
-noremap b :CtrlPBuffer<cr> 
-vnoremap b :CtrlPBuffer<cr>
-noremap B :CtrlP<cr>
-vnoremap B :CtrlP<cr>
-
-"make it so ctrlp doesn't jump
-let g:ctrlp_switch_buffer = 0
-
-"make it so that ctrlp scans hidden files
-let g:ctrlp_show_hidden = 1
-
-"good information: http://www.reddit.com/r/vim/comments/1a7nmw/ctrlp_vs_e_and_b/
+:au FocusLost * silent! wa
 
 "FILE LOADING
 "use :e to open things
@@ -263,6 +248,9 @@ colo hill_color
 
 "MISC SETTINGS
 
+"filetype stuff
+filetype plugin indent on
+
 "eliminate the security hole
 set modelines=0
 
@@ -271,4 +259,51 @@ set nocompatible
 
 "make backspace work like normal application
 set backspace=indent,eol,start
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""PLUGINS"""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"general information on how to install is here
+"http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/
+
+"FAST FILE LOADING (CTRL-P)
+
+noremap b :CtrlPBuffer<cr> 
+vnoremap b :CtrlPBuffer<cr>
+noremap B :CtrlP<cr>
+vnoremap B :CtrlP<cr>
+
+"make it so ctrlp doesn't jump
+let g:ctrlp_switch_buffer = 0
+
+"make it so that ctrlp scans hidden files
+let g:ctrlp_show_hidden = 1
+
+"good information: http://www.reddit.com/r/vim/comments/1a7nmw/ctrlp_vs_e_and_b/
+
+"NEOCOMPLETE
+"https://github.com/Shougo/neocomplete.vim
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
 
