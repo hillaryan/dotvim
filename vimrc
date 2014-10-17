@@ -81,6 +81,10 @@ vnoremap y p
 noremap Y P
 vnoremap Y P
 
+"paste text without new line on new line
+noremap <leader>y o<ESC>p
+noremap <leader>Y O<ESC>p
+
 "copy
 noremap f y
 vnoremap f y
