@@ -25,7 +25,7 @@ vnoremap H ^
 "right word left word
 noremap c w
 vnoremap c w
-noremap <nowait> b
+noremap <nowait> g b
 vnoremap <nowait> g b
 
 "end of word
