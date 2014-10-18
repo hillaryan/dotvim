@@ -1,66 +1,60 @@
 " Vim color file
-" Maintainer:	Bohdan Vlasyuk <bohdan@vstu.edu.ua>
-" Last Change:	2008 Jul 18
 
-" darkblue -- for those who prefer dark background
-" [note: looks bit uglier with come terminal palettes,
-" but is fine on default linux console palette.]
-
-set bg=dark
+set background=dark
 hi clear
 if exists("syntax_on")
 	syntax reset
 endif
+let g:colors_name="hill_color"
 
-let colors_name = "darkblue"
+hi Normal		guifg=grey    guibg=black					        ctermfg=gray    ctermbg=black
+hi ErrorMsg		guifg=red     guibg=black						    ctermfg=red     ctermbg=black
+hi Visual		guifg=grey    guibg=black  gui=reverse			    ctermfg=grey    ctermbg=black cterm=reverse
+hi VisualNOS	guifg=grey    guibg=black  gui=reverse,underline	ctermfg=grey    ctermbg=black cterm=reverse,underline
+hi Todo			guifg=green   guibg=black						    ctermfg=green   ctermbg=black
+hi Search		guifg=grey    guibg=blue						    ctermfg=grey    ctermbg=blue  cterm=underline term=underline
+hi IncSearch	guifg=grey    guibg=blue						    ctermfg=grey    ctermbg=blue
 
-hi Normal		guifg=#c0c0c0 guibg=#000040						ctermfg=gray ctermbg=black
-hi ErrorMsg		guifg=#ffffff guibg=#287eff						ctermfg=white ctermbg=lightblue
-hi Visual		guifg=#8080ff guibg=fg		gui=reverse				ctermfg=lightblue ctermbg=fg cterm=reverse
-hi VisualNOS	guifg=#8080ff guibg=fg		gui=reverse,underline	ctermfg=lightblue ctermbg=fg cterm=reverse,underline
-hi Todo			guifg=#d14a14 guibg=#1248d1						ctermfg=red	ctermbg=darkblue
-hi Search		guifg=#90fff0 guibg=#2050d0						ctermfg=white ctermbg=darkblue cterm=underline term=underline
-hi IncSearch	guifg=#b0ffff guibg=#2050d0							ctermfg=darkblue ctermbg=gray
+hi SpecialKey		guifg=cyan			        ctermfg=cyan
+hi Directory		guifg=cyan			        ctermfg=cyan
+hi Title			guifg=magenta gui=none      ctermfg=magenta cterm=bold
+hi WarningMsg		guifg=red			        ctermfg=red
+hi WildMenu			guifg=yellow guibg=black    ctermfg=yellow ctermbg=black cterm=none term=none
+hi ModeMsg			guifg=lightblue		        ctermfg=lightblue
+hi MoreMsg			ctermfg=darkgreen	        ctermfg=darkgreen
+hi Question			guifg=green gui=none        ctermfg=green cterm=none
+hi NonText			guifg=blue		            ctermfg=blue
 
-hi SpecialKey		guifg=cyan			ctermfg=darkcyan
-hi Directory		guifg=cyan			ctermfg=cyan
-hi Title			guifg=magenta gui=none ctermfg=magenta cterm=bold
-hi WarningMsg		guifg=red			ctermfg=red
-hi WildMenu			guifg=yellow guibg=black ctermfg=yellow ctermbg=black cterm=none term=none
-hi ModeMsg			guifg=#22cce2		ctermfg=lightblue
-hi MoreMsg			ctermfg=darkgreen	ctermfg=darkgreen
-hi Question			guifg=green gui=none ctermfg=green cterm=none
-hi NonText			guifg=#0030ff		ctermfg=darkblue
+hi StatusLine	guifg=blue  guibg=darkgray gui=none		ctermfg=blue  ctermbg=darkgray term=none cterm=none
+hi StatusLineNC	guifg=black guibg=darkgray gui=none		ctermfg=black ctermbg=darkgray term=none cterm=none
+hi VertSplit	guifg=black guibg=darkgray gui=none		ctermfg=black ctermbg=darkgray term=none cterm=none
 
-hi StatusLine	guifg=blue guibg=darkgray gui=none		ctermfg=blue ctermbg=gray term=none cterm=none
-hi StatusLineNC	guifg=black guibg=darkgray gui=none		ctermfg=black ctermbg=gray term=none cterm=none
-hi VertSplit	guifg=black guibg=darkgray gui=none		ctermfg=black ctermbg=gray term=none cterm=none
+hi Folded	    guifg=darkgrey guibg=black			ctermfg=darkgrey ctermbg=black cterm=bold term=bold
+hi FoldColumn	guifg=darkgrey guibg=black			ctermfg=darkgrey ctermbg=black cterm=bold term=bold
+hi LineNr	    guifg=green			                ctermfg=green cterm=none
 
-hi Folded	guifg=#808080 guibg=#000040			ctermfg=darkgrey ctermbg=black cterm=bold term=bold
-hi FoldColumn	guifg=#808080 guibg=#000040			ctermfg=darkgrey ctermbg=black cterm=bold term=bold
-hi LineNr	guifg=#90f020			ctermfg=green cterm=none
+hi DiffAdd	    guibg=darkblue	                    ctermbg=darkblue term=none cterm=none
+hi DiffChange	guibg=darkmagenta                   ctermbg=darkmagenta cterm=none
+hi DiffDelete	guifg=Blue guibg=DarkCyan gui=bold  ctermfg=blue ctermbg=darkcyan 
+hi DiffText	    guibg=Red gui=bold                  ctermbg=red cterm=bold
 
-hi DiffAdd	guibg=darkblue	ctermbg=darkblue term=none cterm=none
-hi DiffChange	guibg=darkmagenta ctermbg=magenta cterm=none
-hi DiffDelete	ctermfg=blue ctermbg=cyan gui=bold guifg=Blue guibg=DarkCyan
-hi DiffText	cterm=bold ctermbg=red gui=bold guibg=Red
-
-hi Cursor	guifg=black guibg=yellow ctermfg=black ctermbg=yellow
-hi lCursor	guifg=black guibg=white ctermfg=black ctermbg=white
+hi Cursor	guifg=black guibg=yellow    ctermfg=black ctermbg=yellow
+hi lCursor	guifg=black guibg=yellow    ctermfg=black ctermbg=yellow
 
 
-hi Comment	guifg=#80a0ff ctermfg=darkred
-hi Constant	ctermfg=fg guifg=fg cterm=none
-hi Special	ctermfg=fg guifg=fg cterm=none gui=none
-hi Identifier	ctermfg=fg guifg=fg cterm=none
-hi Statement	ctermfg=fg cterm=none guifg=fg gui=none
-hi PreProc	ctermfg=fg guifg=fg gui=none cterm=none
-hi type		ctermfg=fg guifg=fg gui=none cterm=none
-hi Underlined	cterm=underline term=underline
-hi Ignore	guifg=fg ctermfg=fg
+hi Comment	    guifg=green             ctermfg=green
+hi Constant	    guifg=grey              ctermfg=grey    cterm=none
+hi Special	    guifg=grey  gui=none    ctermfg=grey    cterm=none 
+hi Identifier	guifg=grey              ctermfg=fg      cterm=none
+hi Statement	guifg=grey  gui=none    ctermfg=fg      cterm=none
+hi PreProc	    guifg=fg    gui=none    ctermfg=fg      cterm=none
+hi type		    guifg=fg    gui=none    ctermfg=fg      cterm=none
+hi Underlined	                                        cterm=underline term=underline
+hi Ignore	    guifg=fg                ctermfg=fg
 
 " suggested by tigmoid, 2008 Jul 18
-hi Pmenu guifg=#c0c0c0 guibg=#404080
-hi PmenuSel guifg=#c0c0c0 guibg=#2050d0
-hi PmenuSbar guifg=blue guibg=darkgray
-hi PmenuThumb guifg=#c0c0c0
+hi Pmenu        guifg=grey    guibg=black  gui=reverse			    ctermfg=grey    ctermbg=black cterm=reverse
+hi PmenuSel     guifg=blue    guibg=grey   gui=reverse			    ctermfg=grey    ctermbg=black cterm=reverse
+hi PmenuSbar    guifg=grey    guibg=black  gui=reverse			    ctermfg=grey    ctermbg=black cterm=reverse
+hi PmenuThumb   guifg=grey    guibg=black  gui=reverse			    ctermfg=grey    ctermbg=black cterm=reverse
+
