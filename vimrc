@@ -199,7 +199,7 @@ set wildmode=list:longest,full
 
 "FONT
 
-set guifont=Monaco:h8
+set guifont=Monaco:h9
 set encoding=utf-8
 
 "TAB/INDENT SETTINGS
