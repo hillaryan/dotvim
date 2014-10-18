@@ -244,12 +244,22 @@ set number
 
 "COLOR SCHEME
 
-colo hill_color
+colorscheme hill_color
+
+"display highlight group
+nmap <leader>h :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 "MISC SETTINGS
 
 "filetype stuff
 filetype plugin indent on
+syntax on
 
 "eliminate the security hole
 set modelines=0

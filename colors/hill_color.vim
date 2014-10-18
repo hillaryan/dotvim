@@ -12,7 +12,7 @@ hi ErrorMsg		guifg=red     guibg=black						    ctermfg=red     ctermbg=black
 hi Visual		guifg=grey    guibg=black  gui=reverse			    ctermfg=grey    ctermbg=black cterm=reverse
 hi VisualNOS	guifg=grey    guibg=black  gui=reverse,underline	ctermfg=grey    ctermbg=black cterm=reverse,underline
 hi Todo			guifg=green   guibg=black						    ctermfg=green   ctermbg=black
-hi Search		guifg=grey    guibg=blue						    ctermfg=grey    ctermbg=blue  cterm=underline term=underline
+hi Search		guifg=grey    guibg=blue						    ctermfg=grey    ctermbg=blue  
 hi IncSearch	guifg=grey    guibg=blue						    ctermfg=grey    ctermbg=blue
 
 hi SpecialKey		guifg=cyan			        ctermfg=cyan
@@ -38,8 +38,8 @@ hi DiffChange	guibg=darkmagenta                   ctermbg=darkmagenta cterm=none
 hi DiffDelete	guifg=Blue guibg=DarkCyan gui=bold  ctermfg=blue ctermbg=darkcyan 
 hi DiffText	    guibg=Red gui=bold                  ctermbg=red cterm=bold
 
-hi Cursor	guifg=black guibg=yellow    ctermfg=black ctermbg=yellow
-hi lCursor	guifg=black guibg=yellow    ctermfg=black ctermbg=yellow
+hi Cursor	guifg=grey guibg=purple    ctermfg=grey ctermbg=5
+hi lCursor	guifg=grey guibg=purple    ctermfg=grey ctermbg=5
 
 
 hi Comment	    guifg=green             ctermfg=green
