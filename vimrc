@@ -293,7 +293,7 @@ let g:ctrlp_show_hidden = 1
 "set wildignore+=*.aux,*.log,*.class
 let g:ctrlp_custom_ignore = {
             \ 'dir': '\vbuild|[\/]\.(git|hg|svn)$',
-            \ 'file': '\v\.(exe|so|dll|class|aux|log|o|cmake|make|internal|includecache|swp)$',
+            \ 'file': '\v\~$|\#$|\.(exe|so|dll|class|aux|log|o|cmake|make|internal|includecache|swp)$',
             \ }
 
 "good information: http://www.reddit.com/r/vim/comments/1a7nmw/ctrlp_vs_e_and_b/
