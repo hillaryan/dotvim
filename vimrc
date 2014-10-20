@@ -289,6 +289,13 @@ let g:ctrlp_switch_buffer = 0
 "make it so that ctrlp scans hidden files
 let g:ctrlp_show_hidden = 1
 
+"set ctrl-p to ignore the write things
+"set wildignore+=*.aux,*.log,*.class
+let g:ctrlp_custom_ignore = {
+            \ 'dir': '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(exe|so|dll|class|aux|log|o|cmake|make|internal|includecache|swp)$',
+            \ }
+
 "good information: http://www.reddit.com/r/vim/comments/1a7nmw/ctrlp_vs_e_and_b/
 
 "NEOCOMPLETE
