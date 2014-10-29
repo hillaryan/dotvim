@@ -130,10 +130,11 @@ noremap U N
 vnoremap U N
 
 "f and t
+"for now we have no t
 noremap w f
 vnoremap w f
-noremap m t
-vnoremap m t
+noremap m F
+vnoremap m F
 
 "REPLACE
 
