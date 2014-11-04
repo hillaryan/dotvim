@@ -135,6 +135,10 @@ noremap w f
 vnoremap w f
 noremap m F
 vnoremap m F
+noremap W t
+vnoremap W t
+noremap M T
+vnoremap M T
 
 "REPLACE
 
@@ -211,6 +215,9 @@ set softtabstop=2
 set expandtab
 set autoindent
 
+set cino+=(0,W4
+set cino+=N-s
+
 "WRAPPING
 set wrap
 set linebreak
@@ -246,6 +253,7 @@ set number
 "COLOR SCHEME
 
 colorscheme hill_color
+set colorcolumn=80
 
 "display highlight group
 nmap <leader>h :call <SID>SynStack()<CR>
