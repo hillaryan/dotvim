@@ -332,4 +332,6 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-
+" CPP LINT
+let g:cpplint_extensions = "cpp,hpp,h,c,cc,cu,cuh"
+autocmd BufWritePost *.h,*.cpp call Cpplint()
