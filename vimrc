@@ -281,22 +281,20 @@ set backspace=indent,eol,start
 
 noremap b :CtrlPBuffer<cr> 
 vnoremap b :CtrlPBuffer<cr>
-noremap B :CtrlP<cr>
-vnoremap B :CtrlP<cr>
-
+noremap B :CtrlP ~/<cr>
+vnoremap B :CtrlP ~/<cr>
+" search deep and wide
+let g:ctrlp_max_depth = 15
+let g:ctrlp_max_files = 100000
 "make it so ctrlp doesn't jump
 let g:ctrlp_switch_buffer = 0
-
 "make it so that ctrlp scans hidden files
 let g:ctrlp_show_hidden = 1
-
 "set ctrl-p to ignore the write things
-"set wildignore+=*.aux,*.log,*.class
 let g:ctrlp_custom_ignore = {
-            \ 'dir': '\vbuild|[\/]\.(git|hg|svn)$',
+            \ 'dir': '\vbuild|\.cache|[\/]\.(git|hg|svn)$',
             \ 'file': '\v\~$|\#$|\.(exe|so|dll|class|aux|log|o|cmake|make|internal|includecache|swp)$',
             \ }
-
 "good information: http://www.reddit.com/r/vim/comments/1a7nmw/ctrlp_vs_e_and_b/
 
 "NEOCOMPLETE
