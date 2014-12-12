@@ -32,6 +32,8 @@ vnoremap g b
 "end of word
 noremap l e
 vnoremap l e
+noremap L E
+vnoremap L E
 
 "pane right pane left 
 noremap <silent> C :wincmd l<CR>
@@ -139,6 +141,24 @@ noremap W t
 vnoremap W t
 noremap M T
 vnoremap M T
+
+"CHANGE and REPLACE
+"jn' will convert this 'hello | world' to this '|'
+noremap j c
+noremap J C
+vnoremap j c
+vnoremap J C
+
+noremap k r
+noremap K R
+vnoremap k r
+vnoremap K R
+
+"DELETE CHAR
+noremap x x
+vnoremap x x
+noremap X X
+vnoremap X X
 
 "REPLACE
 
@@ -278,6 +298,12 @@ set nocompatible
 
 "make backspace work like normal application
 set backspace=indent,eol,start
+
+"UPPER AND LOWER CASE
+nnoremap z u
+vnoremap z u
+nnoremap Z U
+vnoremap Z U
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""PLUGINS"""""""""""""""""""""""""""""""""""""
