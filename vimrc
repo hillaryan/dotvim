@@ -135,6 +135,10 @@ noremap w f
 vnoremap w f
 noremap m F
 vnoremap m F
+noremap W t
+vnoremap W t
+noremap M T
+vnoremap M T
 
 "REPLACE
 
@@ -211,6 +215,9 @@ set softtabstop=2
 set expandtab
 set autoindent
 
+set cino+=(0,W4
+set cino+=N-s
+
 "WRAPPING
 set wrap
 set linebreak
@@ -246,6 +253,7 @@ set number
 "COLOR SCHEME
 
 colorscheme hill_color
+set colorcolumn=80
 
 "display highlight group
 nmap <leader>h :call <SID>SynStack()<CR>
@@ -322,4 +330,17 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
+" CPP LINT
+let g:cpplint_extensions = "cpp,hpp,h,c,cc,cu,cuh"
+let g:cpplint_filter = "-legal/copyright,-build/include_what_you_use"
+"autocmd BufWritePost *.cpp,*.hpp,*.h,*.c,*.cc,*.cu,*.cuh call Cpplint()
 
+" TRAILING WHITESPACE
+fun! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
+
+autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
