@@ -300,10 +300,13 @@ set nocompatible
 set backspace=indent,eol,start
 
 "UPPER AND LOWER CASE
-nnoremap z u
-vnoremap z u
-nnoremap Z U
-vnoremap Z U
+nnoremap q u
+vnoremap q u
+nnoremap Q U
+vnoremap Q U
+
+"disable auto comments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""PLUGINS"""""""""""""""""""""""""""""""""""""
@@ -318,8 +321,8 @@ vnoremap b :CtrlPBuffer<cr>
 noremap B :CtrlP ~/<cr>
 vnoremap B :CtrlP ~/<cr>
 " search deep and wide
-let g:ctrlp_max_depth = 15
-let g:ctrlp_max_files = 100000
+" let g:ctrlp_max_depth = 15
+" let g:ctrlp_max_files = 100000
 "make it so ctrlp doesn't jump
 let g:ctrlp_switch_buffer = 0
 "make it so that ctrlp scans hidden files
@@ -340,6 +343,8 @@ let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
+" Don't show too much
+let g:neocomplete#max_list = 8
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
