@@ -52,10 +52,10 @@ noremap S A
 vnoremap S A
 
 "up down
-noremap u gk
-vnoremap u gk
-noremap e gj
-vnoremap e gj
+noremap u k
+vnoremap u k
+noremap e j
+vnoremap e j
 
 "page up page down
 noremap . <C-f>
@@ -298,12 +298,6 @@ set nocompatible
 
 "make backspace work like normal application
 set backspace=indent,eol,start
-
-"UPPER AND LOWER CASE
-nnoremap q u
-vnoremap q u
-nnoremap Q U
-vnoremap Q U
 
 "disable auto comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
