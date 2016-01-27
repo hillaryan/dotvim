@@ -370,3 +370,6 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 
 autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+" ALWAYS SAVE
+autocmd TextChanged,TextChangedI <buffer> silent write
