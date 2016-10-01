@@ -288,8 +288,8 @@ endfunc
 
 "filetype stuff
 filetype on
-filetype plugin indent on
 syntax on
+filetype plugin indent on
 
 "eliminate the security hole
 set modelines=0
@@ -369,7 +369,8 @@ fun! <SID>StripTrailingWhitespaces()
   call cursor(l, c)
 endfun
 
-autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd! FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " ALWAYS SAVE
-autocmd TextChanged,TextChangedI <buffer> silent write
+" au FocusLost * silent! wa
+" set autowriteall

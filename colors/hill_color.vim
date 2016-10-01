@@ -8,7 +8,8 @@ endif
 let g:colors_name="hill_color"
 
 hi Normal		guifg=grey    guibg=black					        ctermfg=gray    ctermbg=black
-hi ErrorMsg		guifg=red     guibg=black						    ctermfg=red     ctermbg=black
+hi ErrorMsg		guifg=grey     guibg=black						    ctermfg=gray     ctermbg=black
+hi Error		guifg=grey     guibg=black						    ctermfg=gray     ctermbg=black
 hi Visual		guifg=grey    guibg=black  gui=reverse			    ctermfg=grey    ctermbg=black cterm=reverse
 hi VisualNOS	guifg=grey    guibg=black  gui=reverse,underline	ctermfg=grey    ctermbg=black cterm=reverse,underline
 hi Todo			guifg=green   guibg=black						    ctermfg=green   ctermbg=black
