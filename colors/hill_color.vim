@@ -13,8 +13,8 @@ hi Error		guifg=grey     guibg=black						    ctermfg=gray     ctermbg=black
 hi Visual		guifg=grey    guibg=black  gui=reverse			    ctermfg=grey    ctermbg=black cterm=reverse
 hi VisualNOS	guifg=grey    guibg=black  gui=reverse,underline	ctermfg=grey    ctermbg=black cterm=reverse,underline
 hi Todo			guifg=green   guibg=black						    ctermfg=green   ctermbg=black
-hi Search		guifg=grey    guibg=blue						    ctermfg=grey    ctermbg=blue  
-hi IncSearch	guifg=grey    guibg=blue						    ctermfg=grey    ctermbg=blue
+hi Search		guifg=grey    guibg=red						    ctermfg=grey    ctermbg=red  
+hi IncSearch	guifg=grey    guibg=red						    ctermfg=grey    ctermbg=red
 
 hi SpecialKey		guifg=cyan			        ctermfg=cyan
 hi Directory		guifg=cyan			        ctermfg=cyan
