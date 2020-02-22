@@ -23,11 +23,14 @@ noremap H ^
 vnoremap H ^
 
 "right word left word
-noremap c w
-vnoremap c w
+" Note if you begin to get delays on keys try :verbose map <key>
+" look for an extended mapping that vim might be waiting for
+let g:abolish_no_mappings = 1
+noremap <nowait> c w
+vnoremap <nowait> c w
 let g:netrw_nogx = 1
-noremap g b
-vnoremap g b
+noremap <nowait> g b
+vnoremap <nowait> g b
 
 "end of word
 noremap l e
@@ -133,8 +136,8 @@ vnoremap U N
 
 "f and t
 "for now we have no t
-noremap w f
-vnoremap w f
+noremap <nowait> w f
+vnoremap <nowait> w f
 noremap m F
 vnoremap m F
 noremap W t
@@ -313,8 +316,8 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 noremap b :CtrlPBuffer<cr> 
 vnoremap b :CtrlPBuffer<cr>
-noremap B :CtrlP ~/<cr>
-vnoremap B :CtrlP ~/<cr>
+" noremap B :CtrlP ~/<cr>
+" vnoremap B :CtrlP ~/<cr>
 " search deep and wide
 " let g:ctrlp_max_depth = 15
 " let g:ctrlp_max_files = 100000
@@ -329,97 +332,14 @@ let g:ctrlp_custom_ignore = {
             \ }
 "good information: http://www.reddit.com/r/vim/comments/1a7nmw/ctrlp_vs_e_and_b/
 
-"NEOCOMPLETE
-"https://github.com/Shougo/neocomplete.vim
-" Note This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" CPP LINT
-let g:cpplint_extensions = "cpp,hpp,h,c,cc,cu,cuh"
-let g:cpplint_filter = "-legal/copyright,-build/include_what_you_use"
-"autocmd BufWritePost *.cpp,*.hpp,*.h,*.c,*.cc,*.cu,*.cuh call Cpplint()
-
-" TRAILING WHITESPACE
-fun! <SID>StripTrailingWhitespaces()
-  let l = line(".")
-  let c = col(".")
-  %s/\s\+$//e
-  call cursor(l, c)
-endfun
-
-autocmd! FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
-" ALWAYS SAVE
-" au FocusLost * silent! wa
-" set autowriteall
+"
+" MuComplete
+"
+set completeopt+=menuone "Required
+set completeopt+=noselect  "Required
+set shortmess+=c   " Shut off completion messages
+set belloff+=ctrlg " If Vim beeps during completion
+let g:mucomplete#enable_auto_at_startup = 1
 
 "
 "ABOLISH
