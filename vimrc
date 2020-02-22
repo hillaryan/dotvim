@@ -420,3 +420,7 @@ autocmd! FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call 
 " ALWAYS SAVE
 " au FocusLost * silent! wa
 " set autowriteall
+
+"
+"ABOLISH
+"
