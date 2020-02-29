@@ -344,3 +344,8 @@ let g:mucomplete#enable_auto_at_startup = 1
 "
 "ABOLISH
 "
+
+" 
+" Vim Typescript
+"
+let g:typescript_indent_disable = 1
