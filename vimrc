@@ -230,13 +230,12 @@ set wildmode=list:longest,full
 set guifont=Monaco:h9
 set encoding=utf-8
 
-"TAB/INDENT SETTINGS
+"TAB SETTINGS
 
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-set autoindent
 
 set cino+=(0,W4
 set cino+=N-s
@@ -292,7 +291,7 @@ endfunc
 "filetype stuff
 filetype on
 syntax on
-filetype plugin indent on
+" filetype plugin indent on
 
 "eliminate the security hole
 set modelines=0
@@ -345,7 +344,16 @@ let g:mucomplete#enable_auto_at_startup = 1
 "ABOLISH
 "
 
-" 
-" Vim Typescript
+
 "
-let g:typescript_indent_disable = 1
+" Autoindent
+"
+
+" Switch off all indenting except autoindent
+set nocindent
+set nosmartindent
+"set noautoindent
+set indentexpr=
+filetype indent off
+filetype plugin indent off
+set autoindent

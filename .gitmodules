@@ -10,3 +10,6 @@
 [submodule "bundle/vim-mucomplete"]
 	path = bundle/vim-mucomplete
 	url = https://github.com/lifepillar/vim-mucomplete.git
+[submodule "bundle/vim-gutentags"]
+	path = bundle/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags.git
