@@ -432,5 +432,5 @@ let g:gutentags_ctags_extra_args = [
 "
 " Taglist
 "
-let Tlist_Ctags_Cmd = expand("/usr/local/bin/ctags")
+let Tlist_Ctags_Cmd = expand("~/.vim/ctags/ctags_dedup.sh")
 let tlist_typescript_settings = 'typescript;c:classes;f:functions;i:interfaces;v:variables'

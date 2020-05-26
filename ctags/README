@@ -1,2 +1,5 @@
 Symlink these files into ~/.ctags.d/
 Be sure to use full relative paths when symlinking for both source and destination
+We use ctags_dedup becaues taglist calls ctags with sort=no
+Our custom typescript ctags files introduce duplicates which sorting removes
+Turning sorting off leaves the duplicates
