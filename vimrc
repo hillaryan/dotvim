@@ -317,9 +317,8 @@ noremap b :CtrlPBuffer<cr>
 vnoremap b :CtrlPBuffer<cr>
 " noremap B :CtrlP ~/<cr>
 " vnoremap B :CtrlP ~/<cr>
-" search deep and wide
-" let g:ctrlp_max_depth = 15
-" let g:ctrlp_max_files = 100000
+let g:ctrlp_max_depth = 1
+let g:ctrlp_max_files = 1
 "make it so ctrlp doesn't jump
 let g:ctrlp_switch_buffer = 0
 "make it so that ctrlp scans hidden files
@@ -381,56 +380,195 @@ let g:gutentags_ctags_extra_args = [
       \ '--tag-relative=yes',
       \ '--fields=+ailmnS',
       \ ]
-" let g:gutentags_ctags_exclude = [
-"       \ '*.git', '*.svg', '*.hg',
-"       \ '*/tests/*',
-"       \ '*/installations/*',
-"       \ '*/build/*',
-"       \ '*/dist/*',
-"       \ '*sites/*/files/*',
-"       \ '*/bin/*',
-"       \ '*/node_modules/*',
-"       \ '*/cache/*',
-"       \ '*/compiled/*',
-"       \ '*/docs/*',
-"       \ '*/example/*',
-"       \ '*/bundle/*',
-"       \ '*/vendor/*',
-"       \ '*.md',
-"       \ '*-lock.json',
-"       \ '*.lock',
-"       \ '*bundle*.js',
-"       \ '*build*.js',
-"       \ '.*rc*',
-"       \ '*.json',
-"       \ '*.min.*',
-"       \ '*.map',
-"       \ '*.bak',
-"       \ '*.zip',
-"       \ '*.pyc',
-"       \ '*.class',
-"       \ '*.sln',
-"       \ '*.Master',
-"       \ '*.csproj',
-"       \ '*.tmp',
-"       \ '*.csproj.user',
-"       \ '*.cache',
-"       \ '*.pdb',
-"       \ '*/tags/**',
-"       \ 'cscope.*',
-"       \ '*.css',
-"       \ '*.less',
-"       \ '*.scss',
-"       \ '*.exe', '*.dll',
-"       \ '*.mp3', '*.ogg', '*.flac',
-"       \ '*.swp', '*.swo',
-"       \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
-"       \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-"       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
-"       \ ]
+let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ '*/installations/*',
+      \ '*/build/*',
+      \ '*/dist/*',
+      \ '*sites/*/files/*',
+      \ '*/bin/*',
+      \ '*/node_modules/*',
+      \ '*/cache/*',
+      \ '*/compiled/*',
+      \ '*/docs/*',
+      \ '*/example/*',
+      \ '*/bundle/*',
+      \ '*/vendor/*',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.yaml',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ '*/tags/**',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
 
 "
 " Taglist
 "
 let Tlist_Ctags_Cmd = expand("~/.vim/ctags/ctags_dedup.sh")
-let tlist_typescript_settings = 'typescript;c:classes;f:functions;i:interfaces;v:variables'
+let tlist_typescript_settings = 'typescript;c:classes;f:functions;i:interfaces'
+" This option doesn't work
+" let Tlist_Show_One_File = 1
+let Tlist_Auto_Highlight_Tag = 0
+" Open the tag list
+nnoremap <silent> <leader>t :TlistToggle<CR>
+" Source code changes
+" 0) Go into the taglist source and remap update to <leader>u and <leader>p/P
+" 1) Add 
+  " set relativenumber
+  " set number
+  " After all the maps are declared
+" 2) Comment out all folding related settings
+
+
+"
+" Text Substitution Macros
+"
+
+function! Mac()
+  echo "mac..."
+  " Read in each line of the buffer
+  let b:counter = 1
+  " while b:counter < line("$")
+  let b:mode = 'normal'
+  let b:template = []
+  let b:argument = []
+
+  while b:counter <= line("$") + 1
+    let b:current_line = getline(b:counter)
+    echo "Current line: "
+    echo b:current_line
+    let b:p_match = match(b:current_line, "//#")
+    let b:c_match = match(b:current_line, "//")
+    let b:offset = 0
+    " If the line starts with //#
+    if b:p_match >= 0
+      " If mode is normal 
+      if b:mode == 'normal'
+        " Change mode to template
+        echo "Entering template mode"
+        let b:mode = 'template'
+        let b:offset = b:p_match
+        " Clear template list
+        let b:template = []
+      " If mode is template change 
+      elseif b:mode == 'template'
+        " Change mode to argument
+        echo "Entering argument mode"
+        let b:mode = 'argument'
+        " Clear argument list
+        let b:argument = []
+      endif
+    " If line starts with //
+    elseif b:c_match >= 0
+      " If mode is template
+      if b:mode == 'template'
+        " Accumulate template line
+        echo "Accumulating template"
+        let b:x = strpart(b:current_line, b:c_match + 2)
+        call add(b:template, b:x)
+      " If mode is argument
+      elseif b:mode == 'argument'
+        " Accumulate argument line
+        echo "Accumulating argument"
+        let b:x = strpart(b:current_line, b:c_match + 2)
+        call add(b:argument, b:x)
+      endif
+    " Otherwise
+    else
+      " If mode is template
+      if b:mode == 'template'
+        " Echo and abort
+        echo "Template must be followed by arguments"
+        return
+      " If mode is argument
+      elseif b:mode == 'argument'
+        " Write templates
+        echo "Writing templates"
+        let b:lines_inserted = 0
+        " For each arg list
+        for b:arg_line in b:argument
+          echo b:arg_line
+          " Split on commas
+          let b:arg_line_split = split(b:arg_line,",")
+          " If split is not even, echo and abort
+          if len(b:arg_line_split) % 2 == 1
+            echo "Must provide an even number of args"
+            return
+          endif
+          " For each string in template
+          let b:new_lines = []
+          for b:template_line in b:template
+            " Copy the string
+            let b:copy = b:template_line
+            " For each arg pair
+            echo range(len(b:arg_line_split)/2)
+            for b:arg_idx in range(len(b:arg_line_split)/2)
+              " Substitute
+              let b:from_idx = b:arg_idx * 2
+              let b:from = get(b:arg_line_split, b:from_idx)
+              let b:pattern = '\C{{' . b:from . '}}'
+              echo b:pattern
+              let b:to_idx = b:arg_idx * 2 + 1
+              let b:to = get(b:arg_line_split, b:to_idx)
+              let b:copy = substitute(b:copy, b:pattern, b:to, 'g')
+            endfor
+            echo "Substituted copy:"
+            echo b:copy
+            call add(b:new_lines, b:copy)
+          endfor
+          " Get the max length so we can set the location for //!
+          let b:max_len = 0
+          for b:line in b:new_lines
+            if len(b:line) > b:max_len
+              let b:max_len = len(b:line)
+            endif
+          endfor
+          " Append //! to the current string
+          let b:new_lines_ended = []
+          for b:line in b:new_lines
+            let b:opadding = repeat(' ', b:offset)
+            let b:ipadding = repeat(' ', b:max_len - len(b:line) + 1)
+            let b:line_ended = b:opadding . b:line . b:ipadding . '//!'
+            call add(b:new_lines_ended, b:line_ended)
+          endfor
+          echo b:new_lines_ended
+          " Insert the copied string after current_line + lines_inserted
+          call append(b:counter - 1, b:new_lines_ended)
+        endfor
+        " Set mode to normal
+        let b:mode = 'normal'
+      endif
+    endif
+    let b:counter = b:counter + 1
+  endwhile
+
+  " Go through all the lines again and fold those that end with //##
+endfunction
