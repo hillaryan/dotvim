@@ -451,29 +451,26 @@ nnoremap <silent> <leader>t :TlistToggle<CR>
 "
 " Text Substitution Macros
 "
-
-function! Mac()
-  echo "mac..."
-  " Read in each line of the buffer
+function! MacAdd() 
   let b:counter = 1
   " while b:counter < line("$")
   let b:mode = 'normal'
   let b:template = []
   let b:argument = []
+  let b:offset = 0
 
   while b:counter <= line("$") + 1
     let b:current_line = getline(b:counter)
-    echo "Current line: "
-    echo b:current_line
+    " echo "Current line: "
+    " echo b:current_line
     let b:p_match = match(b:current_line, "//#")
     let b:c_match = match(b:current_line, "//")
-    let b:offset = 0
     " If the line starts with //#
     if b:p_match >= 0
       " If mode is normal 
       if b:mode == 'normal'
         " Change mode to template
-        echo "Entering template mode"
+        " echo "Entering template mode"
         let b:mode = 'template'
         let b:offset = b:p_match
         " Clear template list
@@ -481,23 +478,27 @@ function! Mac()
       " If mode is template change 
       elseif b:mode == 'template'
         " Change mode to argument
-        echo "Entering argument mode"
+        " echo "Entering argument mode"
         let b:mode = 'argument'
         " Clear argument list
         let b:argument = []
+      else
+        echo "Error: Cannot have a //# in mode: " . b:mode
+        cursor(b:current_line,1)
+        return 
       endif
     " If line starts with //
     elseif b:c_match >= 0
       " If mode is template
       if b:mode == 'template'
         " Accumulate template line
-        echo "Accumulating template"
+        " echo "Accumulating template"
         let b:x = strpart(b:current_line, b:c_match + 2)
         call add(b:template, b:x)
       " If mode is argument
       elseif b:mode == 'argument'
         " Accumulate argument line
-        echo "Accumulating argument"
+        " echo "Accumulating argument"
         let b:x = strpart(b:current_line, b:c_match + 2)
         call add(b:argument, b:x)
       endif
@@ -506,69 +507,126 @@ function! Mac()
       " If mode is template
       if b:mode == 'template'
         " Echo and abort
-        echo "Template must be followed by arguments"
+        echo "Error: Template must be followed by arguments"
+        cursor(b:current_line,1)
         return
       " If mode is argument
       elseif b:mode == 'argument'
         " Write templates
-        echo "Writing templates"
+        " echo "Writing templates"
         let b:lines_inserted = 0
+        let b:new_lines = []
         " For each arg list
         for b:arg_line in b:argument
-          echo b:arg_line
+          " echo b:arg_line
           " Split on commas
           let b:arg_line_split = split(b:arg_line,",")
           " If split is not even, echo and abort
           if len(b:arg_line_split) % 2 == 1
-            echo "Must provide an even number of args"
+            echo "Error: Must provide an even number of args"
+            cursor(b:current_line,1)
             return
           endif
           " For each string in template
-          let b:new_lines = []
           for b:template_line in b:template
             " Copy the string
             let b:copy = b:template_line
             " For each arg pair
-            echo range(len(b:arg_line_split)/2)
+            " echo range(len(b:arg_line_split)/2)
             for b:arg_idx in range(len(b:arg_line_split)/2)
               " Substitute
               let b:from_idx = b:arg_idx * 2
               let b:from = get(b:arg_line_split, b:from_idx)
               let b:pattern = '\C{{' . b:from . '}}'
-              echo b:pattern
+              " echo b:pattern
               let b:to_idx = b:arg_idx * 2 + 1
               let b:to = get(b:arg_line_split, b:to_idx)
               let b:copy = substitute(b:copy, b:pattern, b:to, 'g')
             endfor
-            echo "Substituted copy:"
-            echo b:copy
+            " echo "Substituted copy:"
+            " echo b:copy
             call add(b:new_lines, b:copy)
           endfor
-          " Get the max length so we can set the location for //!
-          let b:max_len = 0
-          for b:line in b:new_lines
-            if len(b:line) > b:max_len
-              let b:max_len = len(b:line)
-            endif
-          endfor
-          " Append //! to the current string
-          let b:new_lines_ended = []
-          for b:line in b:new_lines
-            let b:opadding = repeat(' ', b:offset)
-            let b:ipadding = repeat(' ', b:max_len - len(b:line) + 1)
-            let b:line_ended = b:opadding . b:line . b:ipadding . '//!'
-            call add(b:new_lines_ended, b:line_ended)
-          endfor
-          echo b:new_lines_ended
-          " Insert the copied string after current_line + lines_inserted
-          call append(b:counter - 1, b:new_lines_ended)
         endfor
+        " Get the max length so we can set the location for //!
+        let b:max_len = 0
+        for b:line in b:new_lines
+          if len(b:line) > b:max_len
+            let b:max_len = len(b:line)
+          endif
+        endfor
+        " echo "Max len" . b:max_len
+        " Append //! to the current string
+        let b:new_lines_ended = []
+        for b:line in b:new_lines
+          let b:opadding = repeat(' ', b:offset)
+          let b:ipadding = repeat(' ', b:max_len - len(b:line) + 1)
+          let b:line_ended = b:opadding . b:line . b:ipadding . '//!'
+          " echo "Line Ended"
+          " echo b:line_ended
+          call add(b:new_lines_ended, b:line_ended)
+        endfor
+        " echo b:new_lines_ended
+        " Insert the copied string after current_line + lines_inserted
+        call append(b:counter - 1, b:new_lines_ended)
         " Set mode to normal
         let b:mode = 'normal'
       endif
     endif
     let b:counter = b:counter + 1
   endwhile
+endfunction
 
+function! MacRemove() 
+  " echo "Removing lines"
+  let b:counter = 1
+  while b:counter <= line("$") + 1
+    let b:current_line = getline(b:counter)
+    call cursor(b:counter, 1)
+    let b:match = match(b:current_line, "//!")
+
+    if b:match >= 0
+      d
+    else
+      let b:counter = b:counter + 1
+    endif
+  endwhile 
+endfunction
+
+function! MacFold() 
+  " echo "Folding lines"
+  let b:counter = 1
+  let b:fold_start = 0
+  let b:fold_end = 0
+  while b:counter <= line("$") + 1
+    let b:current_line = getline(b:counter)
+    call cursor(b:counter, 1)
+    let b:match = match(b:current_line, "//!")
+
+    if b:match >= 0 && b:fold_start == 0
+      let b:fold_start = b:counter
+      let b:fold_end = b:counter
+    elseif b:match >=0 && b:fold_start > 0
+      let b:fold_end = b:counter
+    elseif b:match < 0 && b:fold_start > 0
+      exe b:fold_start . ',' . b:fold_end . 'fold'
+      let b:fold_start = 0 
+      let b:fold_end = 0 
+    endif
+
+    let b:counter = b:counter + 1
+  endwhile 
+endfunction
+
+
+
+function! Mac()
+  " echo "mac..."
+
+  " Remove all lines that end in //!
+  call MacRemove()
+  " Add new lines
+  call MacAdd()
   " Go through all the lines again and fold those that end with //##
+  call MacFold()
 endfunction
