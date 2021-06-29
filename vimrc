@@ -315,17 +315,23 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 noremap b :CtrlPBuffer<cr> 
 vnoremap b :CtrlPBuffer<cr>
-" noremap B :CtrlP ~/<cr>
-" vnoremap B :CtrlP ~/<cr>
-let g:ctrlp_max_depth = 1
-let g:ctrlp_max_files = 1
+noremap B :CtrlP<cr>
+vnoremap B :CtrlP<cr>
+let g:ctrlp_max_depth = 10
+let g:ctrlp_max_files = 10000
 "make it so ctrlp doesn't jump
 let g:ctrlp_switch_buffer = 0
 "make it so that ctrlp scans hidden files
 let g:ctrlp_show_hidden = 1
-"set ctrl-p to ignore the write things
+" Look for .git to indicate root. If no root, use current dir
+let g:ctrlp_working_path_mode = 'ra'
+" Exclude files in gitignore
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" Allow interemdiate roots for monorepo
+let g:ctrlp_root_markers = ['.root']
+"set ctrl-p to ignore the right things
 let g:ctrlp_custom_ignore = {
-            \ 'dir': '\vbuild|\.cache|[\/]\.(git|hg|svn)$',
+            \ 'dir': '\vbuild|installations|node_modules|dist|\.cache|[\/]\.(git|hg|svn)$',
             \ 'file': '\v\~$|\#$|\.(exe|so|dll|class|aux|log|o|cmake|make|internal|includecache|swp)$',
             \ }
 "good information: http://www.reddit.com/r/vim/comments/1a7nmw/ctrlp_vs_e_and_b/
@@ -484,7 +490,7 @@ function! MacAdd()
         let b:argument = []
       else
         echo "Error: Cannot have a //# in mode: " . b:mode
-        cursor(b:current_line,1)
+        " cursor(b:current_line,1)
         return 
       endif
     " If line starts with //
@@ -508,7 +514,7 @@ function! MacAdd()
       if b:mode == 'template'
         " Echo and abort
         echo "Error: Template must be followed by arguments"
-        cursor(b:current_line,1)
+        " cursor(b:current_line,1)
         return
       " If mode is argument
       elseif b:mode == 'argument'
@@ -524,8 +530,8 @@ function! MacAdd()
           " If split is not even, echo and abort
           if len(b:arg_line_split) % 2 == 1
             echo "Error: Must provide an even number of args"
-            cursor(b:current_line,1)
-            return
+            " cursor(b:current_line,1)
+            return 
           endif
           " For each string in template
           for b:template_line in b:template
@@ -622,11 +628,27 @@ endfunction
 
 function! Mac()
   " echo "mac..."
-
+  " Record the initial cursor
+  let b:initial_line = line('.')
   " Remove all lines that end in //!
   call MacRemove()
   " Add new lines
   call MacAdd()
   " Go through all the lines again and fold those that end with //##
   call MacFold()
+  " Reset the cursor
+  call cursor(b:initial_line, 1)
 endfunction
+
+
+"
+" VIM-EASY-ALIGN
+"
+xmap , <Plug>(EasyAlign)
+let g:easy_align_delimiters = {
+  \ '\': {
+  \     'pattern': '\\$',
+  \ },
+  \ }
+
+
