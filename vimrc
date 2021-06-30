@@ -339,11 +339,11 @@ let g:ctrlp_custom_ignore = {
 "
 " MuComplete
 "
-set completeopt+=menuone "Required
-set completeopt+=noselect  "Required
-set shortmess+=c   " Shut off completion messages
-set belloff+=ctrlg " If Vim beeps during completion
-let g:mucomplete#enable_auto_at_startup = 1
+" set completeopt+=menuone "Required
+" set completeopt+=noselect  "Required
+" set shortmess+=c   " Shut off completion messages
+" set belloff+=ctrlg " If Vim beeps during completion
+" let g:mucomplete#enable_auto_at_startup = 1
 
 "
 "ABOLISH
@@ -364,95 +364,95 @@ filetype plugin indent off
 set autoindent
 
 
-"
-" gutentags
-"
-" https://www.reddit.com/r/vim/comments/d77t6j/guide_how_to_setup_ctags_with_gutentags_properly/
-" enable gtags module
-let g:gutentags_modules = ['ctags', 'gtags_cscope']
-" config project root markers.
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['.git']
-" generate datebases in my cache directory, prevent gtags files polluting my project
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-" change focus to quickfix window after search (optional).
-let g:gutentags_plus_switch = 1
-let g:gutentags_define_advanced_commands = 1
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_empty_buffer = 0
-let g:gutentags_ctags_extra_args = [
-      \ '--tag-relative=yes',
-      \ '--fields=+ailmnS',
-      \ ]
-let g:gutentags_ctags_exclude = [
-      \ '*.git', '*.svg', '*.hg',
-      \ '*/tests/*',
-      \ '*/installations/*',
-      \ '*/build/*',
-      \ '*/dist/*',
-      \ '*sites/*/files/*',
-      \ '*/bin/*',
-      \ '*/node_modules/*',
-      \ '*/cache/*',
-      \ '*/compiled/*',
-      \ '*/docs/*',
-      \ '*/example/*',
-      \ '*/bundle/*',
-      \ '*/vendor/*',
-      \ '*.md',
-      \ '*-lock.json',
-      \ '*.lock',
-      \ '*bundle*.js',
-      \ '*build*.js',
-      \ '.*rc*',
-      \ '*.json',
-      \ '*.yaml',
-      \ '*.min.*',
-      \ '*.map',
-      \ '*.bak',
-      \ '*.zip',
-      \ '*.pyc',
-      \ '*.class',
-      \ '*.sln',
-      \ '*.Master',
-      \ '*.csproj',
-      \ '*.tmp',
-      \ '*.csproj.user',
-      \ '*.cache',
-      \ '*.pdb',
-      \ '*/tags/**',
-      \ 'cscope.*',
-      \ '*.css',
-      \ '*.less',
-      \ '*.scss',
-      \ '*.exe', '*.dll',
-      \ '*.mp3', '*.ogg', '*.flac',
-      \ '*.swp', '*.swo',
-      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
-      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
-      \ ]
-
-"
-" Taglist
-"
-let Tlist_Ctags_Cmd = expand("~/.vim/ctags/ctags_dedup.sh")
-let tlist_typescript_settings = 'typescript;c:classes;f:functions;i:interfaces'
-" This option doesn't work
-" let Tlist_Show_One_File = 1
-let Tlist_Auto_Highlight_Tag = 0
-" Open the tag list
-nnoremap <silent> <leader>t :TlistToggle<CR>
-" Source code changes
-" 0) Go into the taglist source and remap update to <leader>u and <leader>p/P
-" 1) Add 
-  " set relativenumber
-  " set number
-  " After all the maps are declared
-" 2) Comment out all folding related settings
-
+" We are no longer using tags, but leaving this here for reference
+" "
+" " gutentags
+" "
+" " https://www.reddit.com/r/vim/comments/d77t6j/guide_how_to_setup_ctags_with_gutentags_properly/
+" " enable gtags module
+" let g:gutentags_modules = ['ctags', 'gtags_cscope']
+" " config project root markers.
+" let g:gutentags_add_default_project_roots = 0
+" let g:gutentags_project_root = ['.git']
+" " generate datebases in my cache directory, prevent gtags files polluting my project
+" let g:gutentags_cache_dir = expand('~/.cache/tags')
+" " change focus to quickfix window after search (optional).
+" let g:gutentags_plus_switch = 1
+" let g:gutentags_define_advanced_commands = 1
+" let g:gutentags_generate_on_new = 1
+" let g:gutentags_generate_on_missing = 1
+" let g:gutentags_generate_on_write = 1
+" let g:gutentags_generate_on_empty_buffer = 0
+" let g:gutentags_ctags_extra_args = [
+"       \ '--tag-relative=yes',
+"       \ '--fields=+ailmnS',
+"       \ ]
+" let g:gutentags_ctags_exclude = [
+"       \ '*.git', '*.svg', '*.hg',
+"       \ '*/tests/*',
+"       \ '*/installations/*',
+"       \ '*/build/*',
+"       \ '*/dist/*',
+"       \ '*sites/*/files/*',
+"       \ '*/bin/*',
+"       \ '*/node_modules/*',
+"       \ '*/cache/*',
+"       \ '*/compiled/*',
+"       \ '*/docs/*',
+"       \ '*/example/*',
+"       \ '*/bundle/*',
+"       \ '*/vendor/*',
+"       \ '*.md',
+"       \ '*-lock.json',
+"       \ '*.lock',
+"       \ '*bundle*.js',
+"       \ '*build*.js',
+"       \ '.*rc*',
+"       \ '*.json',
+"       \ '*.yaml',
+"       \ '*.min.*',
+"       \ '*.map',
+"       \ '*.bak',
+"       \ '*.zip',
+"       \ '*.pyc',
+"       \ '*.class',
+"       \ '*.sln',
+"       \ '*.Master',
+"       \ '*.csproj',
+"       \ '*.tmp',
+"       \ '*.csproj.user',
+"       \ '*.cache',
+"       \ '*.pdb',
+"       \ '*/tags/**',
+"       \ 'cscope.*',
+"       \ '*.css',
+"       \ '*.less',
+"       \ '*.scss',
+"       \ '*.exe', '*.dll',
+"       \ '*.mp3', '*.ogg', '*.flac',
+"       \ '*.swp', '*.swo',
+"       \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+"       \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+"       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+"       \ ]
+" 
+" "
+" " Taglist
+" "
+" let Tlist_Ctags_Cmd = expand("~/.vim/ctags/ctags_dedup.sh")
+" let tlist_typescript_settings = 'typescript;c:classes;f:functions;i:interfaces'
+" " This option doesn't work
+" " let Tlist_Show_One_File = 1
+" let Tlist_Auto_Highlight_Tag = 0
+" " Open the tag list
+" nnoremap <silent> <leader>t :TlistToggle<CR>
+" " Source code changes
+" " 0) Go into the taglist source and remap update to <leader>u and <leader>p/P
+" " 1) Add 
+"   " set relativenumber
+"   " set number
+"   " After all the maps are declared
+" " 2) Comment out all folding related settings
 
 "
 " Text Substitution Macros
@@ -652,3 +652,7 @@ let g:easy_align_delimiters = {
   \ }
 
 
+"
+" TAB NINE
+"
+set rtp+=~/.vim/bundle/tabnine-vim
